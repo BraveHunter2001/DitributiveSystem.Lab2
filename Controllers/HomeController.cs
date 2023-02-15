@@ -19,15 +19,27 @@ namespace DitributiveSystem.Lab2.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string firstName, string lastName, string email) {
-            
+        public ActionResult Index(string firstName, string lastName, string email)
+        {
+
             if (!ModelState.IsValid)
             {
                 ViewBag.ErrorMessage = "One of the fields is empty.";
                 return View();
             }
             ViewBag.ErrorMessage = "";
-            return Content($"FirstName: {firstName}\nLastName: {lastName}\nEmail: {email}");
+            //return Content($"FirstName: {firstName}\nLastName: {lastName}\nEmail: {email}");
+            return View("Answer", new UserViewModel
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email
+            });
+        }
+        [Route("ToBack")]
+        public ActionResult ToBack()
+        {
+            return View("Index");
         }
     }
 }
